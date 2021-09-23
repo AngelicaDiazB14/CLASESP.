@@ -7,8 +7,8 @@ Restricciones: no utilizar palabras built-in, hacer uso de la recursión
 
 def contarCaracteres(nombreArchivo):
     miArchivo = open(nombreArchivo, "r")
-    contenido = miArchivo.readline()
-    "contenido = str(contenido)//No es necesario esa linea.Esta de mas."
+    contenido = miArchivo.read()
+    print(contenido)
     if(isinstance(contenido,str)):
         if(contenido != ""):
             return contarCaracteres_aux(contenido)
@@ -21,6 +21,8 @@ def contarCaracteres(nombreArchivo):
 def contarCaracteres_aux(contenido):
     if(contenido == ""):
         return 0
+    elif(contenido[0] == "\n"):
+        return contarCaracteres_aux(contenido[1:])
     else:
         return 1 + contarCaracteres_aux(contenido[1:])#1: quita el primer elemento
 
@@ -38,7 +40,7 @@ Restricciones: evitar el uso de las palabras built-in, se debe utilizar la recur
 
 def contarPalabras(nombreArchivo, palabraContar):
     miArchivo = open(nombreArchivo, "r")
-    contenido = miArchivo.readlines() 
+    contenido = miArchivo.read() 
     contenido = str(contenido)
     if(isinstance(palabraContar,str)):
         if(contenido != "" and palabraContar != ""):
@@ -83,18 +85,14 @@ Restricciones: evitar el uso de las palabras built-in, se debe utilizar la recur
 def concatenarArchivos(archivo1, archivo2, nuevoArchivo):
     primerArchivo = open(archivo1, "r")
     contenido1 = primerArchivo.read()
-    """
-    En vez de usar readlines use read().porque readlines solo lee una linea,
-    en cambio el read lee todo el texto.
-    """
     primerArchivo.close()
     segundoArchivo = open(archivo2, "r")
     contenido2 = segundoArchivo.read()
     segundoArchivo.close()
-    "contenido1 = str(contenido1)"
-    "contenido2 = str(contenido2)"
+    contenido1 = str(contenido1)
+    contenido2 = str(contenido2)
     archivo = ""
-    archivo += contenido1 + " " +contenido2
+    archivo += contenido1 + "\n" +contenido2
     if(contenido1 != ""):
         if(contenido2 != ""):
             return concatenarArchivos_aux(nuevoArchivo,archivo)
@@ -109,6 +107,5 @@ def concatenarArchivos_aux(nuevoArchivo,archivo):
     f = open (nuevoArchivo,'w') 
     f.write(mensaje)
     print(mensaje)
-    f.close()
-
+    f.close()   
        
